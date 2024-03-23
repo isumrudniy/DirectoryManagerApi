@@ -1,17 +1,25 @@
 package ru.tuzhilkin_dm.rusoft.data.entity;
 
 import jakarta.persistence.*;
-
-import java.util.Map;
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
-@Table(name = "value_reference")
-public class ValueReference {
+@Data
+@Table(name = "value_directory")
+
+public class ValueDirectory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
     @Column(name = "sup_attrs")
-    private String supAttrs;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private SupAttrs supAttrs;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "directory_id")
+    private Directory directory;
 }

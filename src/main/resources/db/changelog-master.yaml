@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01_initialize
+      author: tdm
+      changes:
+        - sqlFile:
+            relativeToChangelogFile: true
+            path: changelog/01_initialize.sql

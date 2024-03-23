@@ -1,4 +1,4 @@
-package ru.tuzhilkin_dm.rusoft.data.entity;
+package ru.tuzhilkin_dm.rusoft.data.dto;
 
-public record RestResponce() {
+public record RestResponse(Object result) {
 }
