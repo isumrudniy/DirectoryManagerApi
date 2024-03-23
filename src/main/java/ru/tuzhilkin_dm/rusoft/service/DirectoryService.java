@@ -12,7 +12,7 @@ public interface DirectoryService {
 
     Directory findByName(String name);
 
-    void save(Directory directory);
+    Directory save(Directory directory);
 
     void deleteById(String id);
 

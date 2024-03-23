@@ -2,7 +2,6 @@ package ru.tuzhilkin_dm.rusoft.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.stereotype.Service;
 import ru.tuzhilkin_dm.rusoft.data.entity.Directory;
 import ru.tuzhilkin_dm.rusoft.exception.NotFoundException;
@@ -24,23 +23,24 @@ public class DirectoryServiceImpl implements DirectoryService {
 
     @Override
     public Directory findByName(String name) {
-        return directoryRepository.findDirectoryByName(name);
+        return directoryRepository.findDirectoryByName(name).orElseThrow(() -> new NotFoundException("The record with name: " + name + " not found."));
     }
 
     @Override
     @Transactional
-    public void save(Directory directory) {
-        directoryRepository.save(directory);
+    public Directory save(Directory directory) {
+        return directoryRepository.save(directory);
     }
 
     @Override
     public void deleteById(String id) {
-        directoryRepository.deleteById(id);
+        Directory directory = directoryRepository.findById(id).orElseThrow(() -> new NotFoundException("The record with id " + id + "not found."));
+        directoryRepository.deleteById(directory.getId());
     }
 
     @Override
     public List<Directory> findAll() {
-        List<Directory> directories = directoryRepository.findAll();
+        List<Directory> directories = directoryRepository.findAllDirectoriesWithValue();
         if (directories.isEmpty()) {
             throw new NotFoundException("The records not found.");
         }
@@ -48,7 +48,7 @@ public class DirectoryServiceImpl implements DirectoryService {
     }
 
     @Override
+    @Transactional
     public void update(String id, Directory directory) {
-
     }
 }

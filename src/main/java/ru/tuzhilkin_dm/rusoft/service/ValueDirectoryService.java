@@ -11,7 +11,7 @@ public interface ValueDirectoryService {
 
     List<ValueDirectory> findAll();
 
-    void save(ValueDirectory valueDirectory);
+    ValueDirectory save(ValueDirectory valueDirectory);
 
     void deleteById(String id);
 

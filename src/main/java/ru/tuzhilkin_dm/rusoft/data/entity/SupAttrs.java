@@ -1,8 +1,15 @@
 package ru.tuzhilkin_dm.rusoft.data.entity;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Map;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class SupAttrs implements Serializable {
-    private Map<String, Object> supAttrs;
+    Map<String, Object> attrs;
 }

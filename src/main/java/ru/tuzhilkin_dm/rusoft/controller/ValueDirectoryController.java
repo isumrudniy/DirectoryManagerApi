@@ -10,15 +10,15 @@ import ru.tuzhilkin_dm.rusoft.data.dto.RestResponse;
 import ru.tuzhilkin_dm.rusoft.service.ValueDirectoryService;
 
 @RestController
-@RequestMapping("/api/field")
 @RequiredArgsConstructor
+@RequestMapping("/api/field")
 public class ValueDirectoryController {
 
     private final ValueDirectoryService valueDirectoryService;
 
-    @GetMapping("/find")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public RestResponse findAll() {
-        return new RestResponse(null);
+        return new RestResponse(valueDirectoryService.findAll());
     }
 }

@@ -1,20 +1,21 @@
 package ru.tuzhilkin_dm.rusoft.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "directories")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Directory {
 
     @Id
@@ -22,6 +23,5 @@ public class Directory {
     private String id;
     private String name;
     @OneToMany(mappedBy = "directory", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<ValueDirectory> valueDirectory;
+    private List<ValueDirectory> valueDirectories;
 }
