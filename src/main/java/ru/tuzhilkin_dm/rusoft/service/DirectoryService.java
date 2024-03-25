@@ -1,9 +1,10 @@
 package ru.tuzhilkin_dm.rusoft.service;
 
+import ru.tuzhilkin_dm.rusoft.data.dto.DirectoryCreationDto;
+import ru.tuzhilkin_dm.rusoft.data.dto.DirectoryDto;
 import ru.tuzhilkin_dm.rusoft.data.entity.Directory;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DirectoryService {
     Directory findById(String id);
@@ -16,5 +17,5 @@ public interface DirectoryService {
 
     void deleteById(String id);
 
-    void update(String id, Directory directory);
+    Directory update(String id, Directory directory);
 }

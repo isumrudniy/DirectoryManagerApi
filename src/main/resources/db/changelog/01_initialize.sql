@@ -7,7 +7,8 @@ create table DIRECTORIES
 (
     ID    varchar(40) primary key,
     NAME  varchar(100) not null,
-    LOGIN varchar(60)
+    AUTHOR varchar(60),
+    DATETIME timestamp
 );
 
 create table VALUE_DIRECTORY
@@ -17,5 +18,7 @@ create table VALUE_DIRECTORY
     NAME         varchar(100) not null,
     SUP_ATTRS    jsonb,
     DIRECTORY_ID varchar(40),
+    AUTHOR varchar(60),
+    DATETIME timestamp,
     foreign key (DIRECTORY_ID) references DIRECTORIES (ID) on delete cascade
 );

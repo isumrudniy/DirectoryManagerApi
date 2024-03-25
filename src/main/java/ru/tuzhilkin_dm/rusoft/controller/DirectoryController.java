@@ -1,10 +1,13 @@
 package ru.tuzhilkin_dm.rusoft.controller;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.tuzhilkin_dm.rusoft.data.dto.DirectoryCreationDto;
 import ru.tuzhilkin_dm.rusoft.data.dto.DirectoryDto;
 import ru.tuzhilkin_dm.rusoft.data.dto.RestResponse;
+import ru.tuzhilkin_dm.rusoft.data.entity.Directory;
 import ru.tuzhilkin_dm.rusoft.service.DirectoryService;
 import ru.tuzhilkin_dm.rusoft.util.mapper.DirectoryMapper;
 
@@ -21,21 +24,21 @@ public class DirectoryController {
     @ResponseStatus(HttpStatus.OK)
     public RestResponse findAllOrByName(@RequestParam(required = false) Optional<String> name) {
         if (!name.isPresent()) {
-            return new RestResponse(directoryService.findAll());
+            return new RestResponse(directoryMapper.toDto(directoryService.findAll()));
         }
-        return new RestResponse(directoryService.findByName(name.get()));
+        return new RestResponse(directoryMapper.toDto(directoryService.findByName(name.get())));
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public RestResponse findById(@PathVariable String id) {
-        return new RestResponse(directoryService.findById(id));
+        return new RestResponse(directoryMapper.toDto(directoryService.findById(id)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestResponse create(@RequestBody DirectoryDto directoryDto) {
-        return new RestResponse(directoryService.save(directoryMapper.toEntity(directoryDto)));
+    public RestResponse create(@RequestBody DirectoryCreationDto directoryCreationDto) {
+        return new RestResponse(directoryService.save(directoryMapper.toEntity(directoryCreationDto)));
     }
 
     @DeleteMapping("/{id}")
@@ -44,4 +47,12 @@ public class DirectoryController {
         directoryService.deleteById(id);
         return new RestResponse("Record deleted successfully");
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @Transactional
+    public RestResponse updateById(@PathVariable String id, @RequestBody DirectoryCreationDto directoryDto) {
+        return new RestResponse(directoryMapper.toDto(directoryService.update(id, directoryMapper.toEntity(directoryDto))));
+    }
+
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,4 +25,7 @@ public class Directory {
     private String name;
     @OneToMany(mappedBy = "directory", fetch = FetchType.LAZY)
     private List<ValueDirectory> valueDirectories;
+    private String author;
+    @Column(name = "DATETIME")
+    private LocalDateTime dateTime;
 }

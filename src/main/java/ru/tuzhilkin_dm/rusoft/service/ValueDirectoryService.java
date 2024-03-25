@@ -15,6 +15,6 @@ public interface ValueDirectoryService {
 
     void deleteById(String id);
 
-    void update(String id, ValueDirectory valueDirectory);
+    ValueDirectory update(String id, ValueDirectory valueDirectory);
 
 }
