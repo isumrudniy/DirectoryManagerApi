@@ -13,17 +13,15 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "valueDirectories")
 @Table(name = "directories")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Directory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    @OneToMany(mappedBy = "directory", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "directory", fetch = FetchType.EAGER)
     private List<ValueDirectory> valueDirectories;
     private String author;
     @Column(name = "DATETIME")

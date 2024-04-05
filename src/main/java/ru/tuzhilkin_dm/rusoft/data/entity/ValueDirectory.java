@@ -18,11 +18,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "directory")
 @Table(name = "value_directory")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class ValueDirectory {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
